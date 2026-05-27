@@ -1,24 +1,22 @@
-// Stagger fade-in on load — each section 100ms after the previous
-const animEls = document.querySelectorAll('[data-anim]');
-animEls.forEach((el, i) => {
-  const delay = parseInt(el.dataset.anim, 10) * 100;
+// Stagger entrance — each section 120ms apart
+document.querySelectorAll('[data-anim]').forEach(el => {
+  const delay = parseInt(el.dataset.anim, 10) * 120;
   setTimeout(() => el.classList.add('visible'), delay);
 });
 
-// QR code — points to whatever URL this page is served from
-// (works on localhost, Vercel preview, and custom domain without any changes)
+// QR code — always reflects the current URL (works on any domain)
 if (typeof QRCode !== 'undefined') {
   new QRCode(document.getElementById('qrcode'), {
     text: window.location.href,
-    width: 148,
-    height: 148,
+    width: 144,
+    height: 144,
     colorDark: '#000000',
     colorLight: '#ffffff',
     correctLevel: QRCode.CorrectLevel.M,
   });
 }
 
-// vCard download — opens Contacts app on iOS/Android when tapped
+// vCard download — vCard 3.0 for max iOS + Android compat
 document.getElementById('saveContact').addEventListener('click', () => {
   const lines = [
     'BEGIN:VCARD',
@@ -35,7 +33,6 @@ document.getElementById('saveContact').addEventListener('click', () => {
     'NOTE:Founder of BHMonitor (bhmonitor.com) and Bahrain Blood Donor Network (bloodbh.com)',
     'END:VCARD',
   ];
-
   const blob = new Blob([lines.join('\r\n')], { type: 'text/vcard;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
