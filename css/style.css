@@ -1,0 +1,384 @@
+/* ── Design Tokens ── */
+:root {
+  --bg: #0A0F1C;
+  --bg-card: #0F1628;
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --text-primary: #F0F4FF;
+  --text-muted: #6B7A9F;
+  --text-dim: #3A4560;
+  --cyan: #00b4d8;
+  --purple: #8b5cf6;
+  --magenta: #d946ef;
+  --gradient: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 50%, var(--magenta) 100%);
+  --gradient-text: linear-gradient(90deg, var(--cyan), var(--purple));
+  --radius-pill: 9999px;
+  --radius-card: 16px;
+  --radius-btn: 14px;
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  background-image: radial-gradient(ellipse 80% 40% at 50% -10%, rgba(0, 180, 216, 0.10), transparent),
+                    radial-gradient(ellipse 60% 30% at 80% 80%, rgba(139, 92, 246, 0.06), transparent);
+  color: var(--text-primary);
+  font-family: var(--font);
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  padding: 48px 16px 72px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Card ── */
+.card {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+/* ── Avatar ── */
+.profile { display: flex; justify-content: center; }
+
+.avatar-ring {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, var(--cyan), var(--purple), var(--magenta), var(--cyan));
+  background-size: 300% 300%;
+  animation: ring-shimmer 5s ease-in-out infinite;
+  position: relative;
+  box-shadow: 0 0 32px rgba(0, 180, 216, 0.25), 0 0 60px rgba(139, 92, 246, 0.15);
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  background: var(--bg-card);
+}
+
+@keyframes ring-shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── Identity ── */
+.identity { text-align: center; }
+
+.display-name {
+  font-size: 2.1rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 7px;
+  background: linear-gradient(90deg, #e0f2ff 0%, var(--cyan) 40%, var(--purple) 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.full-name {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* ── Role Pills ── */
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+}
+
+.role-pill {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-glass);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.role-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--gradient);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.role-pill:hover, .role-pill:active {
+  background: rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.45);
+  transform: scale(1.015);
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.15);
+}
+
+.role-pill:active { transform: scale(0.98); }
+
+.pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gradient);
+  flex-shrink: 0;
+}
+
+/* ── Contact Buttons ── */
+.contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: var(--radius-btn);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  color: var(--text-primary);
+  font-size: 0.925rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.contact-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.contact-btn:active { transform: scale(0.98); }
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+/* LinkedIn pill tint */
+.linkedin-btn:hover { border-color: rgba(10, 102, 194, 0.5); background: rgba(10, 102, 194, 0.08); }
+
+/* ── Save Contact Button ── */
+.save-section { width: 100%; }
+
+.save-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 17px;
+  border-radius: var(--radius-btn);
+  background: linear-gradient(135deg, var(--cyan), var(--purple), var(--magenta), var(--cyan));
+  background-size: 300% 300%;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  animation: ring-shimmer 5s ease-in-out infinite;
+  transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 24px rgba(139, 92, 246, 0.3);
+}
+
+.save-btn:hover {
+  opacity: 0.92;
+  box-shadow: 0 6px 32px rgba(139, 92, 246, 0.4);
+}
+
+.save-btn:active { transform: scale(0.98); opacity: 0.88; }
+.save-btn .btn-icon { width: 18px; height: 18px; opacity: 1; }
+
+/* ── Companies ── */
+.companies { width: 100%; }
+
+.section-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.company-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: var(--radius-card);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  margin-bottom: 9px;
+  gap: 12px;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.company-card:last-child { margin-bottom: 0; }
+
+.company-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.company-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.company-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary);
+}
+
+.company-tagline {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.company-links {
+  display: flex;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.company-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  color: var(--text-muted);
+  font-size: 0.69rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+  white-space: nowrap;
+}
+
+.company-link svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+.company-link:hover {
+  color: var(--text-primary);
+  border-color: rgba(139, 92, 246, 0.4);
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.company-link:active { transform: scale(0.97); }
+
+/* ── Location ── */
+.location { text-align: center; }
+
+.location-text {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* ── QR Code ── */
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+#qrcode {
+  padding: 12px;
+  background: #fff;
+  border-radius: 14px;
+  display: inline-block;
+  line-height: 0;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+#qrcode canvas,
+#qrcode img { display: block; }
+
+.qr-label {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+
+/* ── Stagger Entrance Animation ── */
+[data-anim] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+[data-anim].visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Responsive ── */
+@media (max-width: 380px) {
+  .display-name { font-size: 1.75rem; }
+
+  .company-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .company-links {
+    width: 100%;
+  }
+
+  .company-link {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 481px) {
+  body { padding: 64px 24px 80px; }
+}
